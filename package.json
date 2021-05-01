@@ -10,7 +10,7 @@
   "scripts": {
     "start": "electron .",
     "build-win": "electron-builder --win --publish never",
-    "publish-win": "electron-builder --win --publish always"
+    "publish-win": "electron-builder --win --publish onTagOrDraft"
   },
   "devDependencies": {
     "electron": "^12.0.5",
