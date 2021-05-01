@@ -5,6 +5,8 @@
   "dependencies": {
     "electron-store": "^8.0.0"
   },
+  "description": "Switches between Windows Explorer Tabs",
+  "author": "markxoe",
   "scripts": {
     "start": "electron .",
     "build-win": "electron-builder --win --publish never",
