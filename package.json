@@ -1,0 +1,25 @@
+{
+  "name": "electron-windows-explorer-thing",
+  "version": "0.0.1",
+  "main": "index.js",
+  "dependencies": {
+    "electron-store": "^8.0.0"
+  },
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^12.0.5",
+    "electron-builder": "^22.10.5"
+  },
+  "build": {
+    "productName": "Explorer Switcher",
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": false
+    }
+  }
+}
