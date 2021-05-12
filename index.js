@@ -18,7 +18,7 @@ const createWindow = () => {
     height: 200,
     width: 600,
   });
-  mainWindow.loadFile("index.html");
+  mainWindow.loadFile("app/index.html");
 
   electron.ipcMain.on("setSticky", (event, args) => {
     store.set("sticky", args);
