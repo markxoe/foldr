@@ -17,7 +17,7 @@ let currentTabId = 0;
 const genInner = (p) => {
   if (typeof p == "string") {
     if (p.match(/[\/\\]/g)) {
-      const l = p.match(/([\/\\][^\/\\]+)/g);
+      const l = p.match(/([\/\\][^\/\\]*)/g);
       let out = "...";
       if (l.length >= 2) out += l[l.length - 2];
       if (l.length >= 1) out += l[l.length - 1];
