@@ -10,6 +10,10 @@ const currentWindow = electron.getCurrentWindow();
 
 let buttons = [];
 
+const tabs = new (require("./data"))();
+
+let currentTabId = 0;
+
 const genInner = (p) => {
   if (typeof p == "string") {
     if (p.match(/[\/\\]/g)) {
@@ -27,9 +31,8 @@ const genInner = (p) => {
 };
 
 const reRenderButtons = () => {
-  console.log("Buttons", buttons);
   main.innerHTML = "";
-  buttons.forEach((link) => {
+  tabs.getButtonsFromTab().forEach((link) => {
     const newElParent = document.createElement("div");
     const newEl = document.createElement("button");
     newEl.innerText = genInner(link);
@@ -55,6 +58,31 @@ const reRenderButtons = () => {
   });
 };
 
+const renderTabSelector = () => {
+  const tabselect = document.getElementById("tabselect");
+  // Empty
+  tabselect.innerHTML = "";
+  // Add Buttons
+  for (let tab of tabs.getTabNamesAndIndexes()) {
+    const _tempEl = document.createElement("option");
+    _tempEl.innerText = tab.name;
+    _tempEl.value = tab.id;
+    _tempEl.selected = tab.id == tabs.currentTabId;
+    tabselect.append(_tempEl);
+  }
+};
+
+const initTabSelector = () => {
+  const tabselect = document.getElementById("tabselect");
+  // Add change listener
+  tabselect.addEventListener("change", function (ev) {
+    tabs.setCurrentTabId(this.value);
+    reRenderButtons();
+  });
+  // Render
+  renderTabSelector();
+};
+
 const addItemDialog = () => {
   currentWindow.hide();
   electron.dialog
@@ -64,10 +92,7 @@ const addItemDialog = () => {
     })
     .then((val) => {
       if (val.filePaths.length > 0) {
-        let newButtons = [...buttons, val.filePaths[0]];
-        store.set("buttons", newButtons);
-        console.log({ newButtons });
-        buttons = newButtons;
+        tabs.addButtonToTab(val.filePaths[0]);
         reRenderButtons();
       }
       currentWindow.show();
@@ -75,8 +100,6 @@ const addItemDialog = () => {
 };
 
 const init = () => {
-  if (store.has("buttons")) buttons = [...buttons, ...store.get("buttons")];
-
   document
     .getElementById("close")
     .addEventListener("click", () => currentWindow.close());
@@ -85,8 +108,9 @@ const init = () => {
     .addEventListener("click", () => currentWindow.minimize());
 
   document.getElementById("more").addEventListener("click", () => {
-    const subMenu = new electron.Menu();
-    subMenu.append(
+    const mainMenu = new electron.Menu();
+    const subMenuSettings = new electron.Menu();
+    subMenuSettings.append(
       new electron.MenuItem({
         type: "checkbox",
         label: "Sticky",
@@ -108,10 +132,65 @@ const init = () => {
         },
       })
     );
-    const mainMenu = new electron.Menu();
     mainMenu.append(
-      new electron.MenuItem({ label: "Einstellungen", submenu: subMenu })
+      new electron.MenuItem({
+        label: "Einstellungen",
+        submenu: subMenuSettings,
+      })
     );
+
+    const subMenuTabs = new electron.Menu();
+
+    for (let tab of tabs.getTabNamesAndIndexes()) {
+      const subsubMenu = new electron.Menu();
+      subsubMenu.append(
+        new electron.MenuItem({
+          label: "Löschen",
+          click: () => {
+            tabs.removeTab(tab.id);
+            if (tab.id == tabs.currentTabId) {
+              tabs.setCurrentTabIdtoLast();
+            }
+            renderTabSelector();
+            reRenderButtons();
+          },
+        })
+      );
+      subsubMenu.append(
+        new electron.MenuItem({
+          label: "Auswählen",
+          click: () => {
+            tabs.setCurrentTabId(tab.id);
+            renderTabSelector();
+            reRenderButtons();
+          },
+        })
+      );
+      subMenuTabs.append(
+        new electron.MenuItem({
+          label: tab.name,
+          submenu: subsubMenu,
+        })
+      );
+    }
+
+    subMenuTabs.append(
+      new electron.MenuItem({
+        label: "Tab Hinzufügen",
+        click: () => {
+          tabs.addTab("Tab " + tabs.length());
+          renderTabSelector();
+          reRenderButtons();
+        },
+      })
+    );
+    mainMenu.append(
+      new electron.MenuItem({
+        label: "Tabs",
+        submenu: subMenuTabs,
+      })
+    );
+
     mainMenu.append(
       new electron.MenuItem({
         label: "Ordner hinzufügen",
@@ -124,6 +203,9 @@ const init = () => {
   document.getElementById("add").addEventListener("click", () => {
     addItemDialog();
   });
+
+  initTabSelector();
+
   reRenderButtons();
 };
 
@@ -136,10 +218,8 @@ function onButtonClickRemove() {
   const link = this.getAttribute("link");
   console.log("Remove", link);
 
-  let newButtons = buttons.filter((e) => e != link);
-  store.set("buttons", newButtons);
-  console.log({ newButtons });
-  buttons = newButtons;
+  tabs.removeButtonFromTab(currentTabId, link);
+
   reRenderButtons();
 }
 
