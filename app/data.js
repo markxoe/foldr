@@ -1,10 +1,28 @@
+const electronStore = require("electron-store");
+
 class AllData {
   alldata = [
     { name: "Tab 0", buttons: ["C:/Users/marko"] },
     { name: "Tab 4", buttons: ["C:/"] },
   ];
   currentTabId = 0;
-  constructor() {}
+  store = new electronStore();
+
+  constructor(storeName) {
+    this.store = new electronStore({ name: storeName });
+    this.load();
+  }
+
+  load() {
+    if (this.store.has("tabs")) this.alldata = this.store.get("tabs");
+    if (this.store.has("currentTab"))
+      this.currentTabId = this.store.get("currentTab");
+  }
+
+  save() {
+    this.store.set("tabs", this.alldata);
+    this.store.set("currentTab", this.currentTabId);
+  }
 
   /**
    * Add empty Tab to Store
@@ -100,4 +118,6 @@ class AllData {
   }
 }
 
-module.exports = AllData;
+const data = new AllData("tabs-n-stuff");
+
+module.exports = data;

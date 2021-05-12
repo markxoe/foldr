@@ -10,7 +10,7 @@ const currentWindow = electron.getCurrentWindow();
 
 let buttons = [];
 
-const tabs = new (require("./data"))();
+const tabs = require("./data");
 
 let currentTabId = 0;
 
