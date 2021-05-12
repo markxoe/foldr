@@ -79,6 +79,18 @@ body {
   float: right;
   display: flex;
 }
+
+#close-n-stuff .left {
+  float: left;
+  display: flex;
+}
+#close-n-stuff .left p {
+  color: #ffffff;
+  padding: 5px;
+  font-size: 17px;
+  margin: 0;
+}
+
 #close-n-stuff img {
   height: 100%;
 }
