@@ -1,4 +1,4 @@
-name: Build .exe for Windows
+name: Publish master
 
 on:
   push:
