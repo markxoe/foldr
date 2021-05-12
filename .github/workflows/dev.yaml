@@ -1,8 +1,9 @@
-name: Publish master
+name: Build dev
 
 on:
   push:
-    branches: [master]
+    branches:
+      - dev
 
 jobs:
   build:
@@ -14,6 +15,4 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm run publish-win
-        env:
-          GH_TOKEN: ${{ secrets.github_token }}
+        run: npm run build-win
