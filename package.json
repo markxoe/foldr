@@ -1,6 +1,6 @@
 {
   "name": "electron-windows-explorer-thing",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "index.js",
   "dependencies": {
     "electron-store": "^8.0.0"
