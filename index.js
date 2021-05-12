@@ -12,10 +12,10 @@ const createWindow = () => {
       enableRemoteModule: true,
       contextIsolation: false,
     },
+    frame: false,
     height: 200,
     width: 600,
   });
-  mainWindow.setMenu(null);
   mainWindow.loadFile("index.html");
 };
 

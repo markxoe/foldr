@@ -57,6 +57,13 @@ const reRenderButtons = () => {
 const init = () => {
   if (store.has("buttons")) buttons = [...buttons, ...store.get("buttons")];
 
+  document
+    .getElementById("close")
+    .addEventListener("click", () => currentWindow.close());
+  document
+    .getElementById("min")
+    .addEventListener("click", () => currentWindow.minimize());
+
   document.getElementById("add").addEventListener("click", () => {
     currentWindow.hide();
     electron.dialog
