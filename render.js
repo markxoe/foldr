@@ -8,13 +8,30 @@ const currentWindow = electron.getCurrentWindow();
 
 let buttons = [];
 
+const genInner = (p) => {
+  if (typeof p == "string") {
+    if (p.match(/[\/\\]/g)) {
+      const l = p.match(/([\/\\][^\/\\]+)/g);
+      let out = "...";
+      if (l.length >= 2) out += l[l.length - 2];
+      if (l.length >= 1) out += l[l.length - 1];
+      return out;
+    } else {
+      return p;
+    }
+  } else {
+    return p;
+  }
+};
+
 const reRenderButtons = () => {
   console.log("Buttons", buttons);
   main.innerHTML = "";
   buttons.forEach((link) => {
     const newElParent = document.createElement("div");
     const newEl = document.createElement("button");
-    newEl.innerText = link;
+    newEl.innerText = genInner(link);
+    newEl.setAttribute("link", link);
 
     newEl.addEventListener("click", onButtonClick);
     newEl.classList.add("button-inner");
@@ -55,7 +72,7 @@ const init = () => {
 };
 
 function onButtonClick() {
-  const link = this.innerText;
+  const link = this.getAttribute("link");
   electron.shell.openExternal(link);
 }
 
