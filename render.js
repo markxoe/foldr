@@ -3,6 +3,7 @@ const crypto = require("crypto");
 
 const electronStore = require("electron-store");
 const electron = require("electron").remote;
+const ipcRender = require("electron").ipcRenderer;
 
 const store = new electronStore({ name: "buttons" });
 const currentWindow = electron.getCurrentWindow();
@@ -54,6 +55,25 @@ const reRenderButtons = () => {
   });
 };
 
+const addItemDialog = () => {
+  currentWindow.hide();
+  electron.dialog
+    .showOpenDialog(undefined, {
+      properties: ["openDirectory"],
+      title: "Ordner hinzufügen",
+    })
+    .then((val) => {
+      if (val.filePaths.length > 0) {
+        let newButtons = [...buttons, val.filePaths[0]];
+        store.set("buttons", newButtons);
+        console.log({ newButtons });
+        buttons = newButtons;
+        reRenderButtons();
+      }
+      currentWindow.show();
+    });
+};
+
 const init = () => {
   if (store.has("buttons")) buttons = [...buttons, ...store.get("buttons")];
 
@@ -64,23 +84,45 @@ const init = () => {
     .getElementById("min")
     .addEventListener("click", () => currentWindow.minimize());
 
-  document.getElementById("add").addEventListener("click", () => {
-    currentWindow.hide();
-    electron.dialog
-      .showOpenDialog(undefined, {
-        properties: ["openDirectory"],
-        title: "Ordner hinzufügen",
+  document.getElementById("more").addEventListener("click", () => {
+    const subMenu = new electron.Menu();
+    subMenu.append(
+      new electron.MenuItem({
+        type: "checkbox",
+        label: "Sticky",
+        checked: ipcRender.sendSync("getSticky"),
+        click: (item) => {
+          currentWindow.minimize();
+          electron.dialog
+            .showMessageBox(null, {
+              message: "Bitte starte die App neu",
+              title: "App neu starten",
+              detail:
+                "Die Einstellung wurde übernommen. Nachdem sich die App automatisch geschlossen hat kannst du sie wieder öffnen",
+              type: "info",
+            })
+            .then((val) => {
+              ipcRender.send("setSticky", item.checked);
+              currentWindow.destroy();
+            });
+        },
       })
-      .then((val) => {
-        if (val.filePaths.length > 0) {
-          let newButtons = [...buttons, val.filePaths[0]];
-          store.set("buttons", newButtons);
-          console.log({ newButtons });
-          buttons = newButtons;
-          reRenderButtons();
-        }
-        currentWindow.show();
-      });
+    );
+    const mainMenu = new electron.Menu();
+    mainMenu.append(
+      new electron.MenuItem({ label: "Einstellungen", submenu: subMenu })
+    );
+    mainMenu.append(
+      new electron.MenuItem({
+        label: "Ordner hinzufügen",
+        click: () => addItemDialog(),
+      })
+    );
+    mainMenu.popup();
+  });
+
+  document.getElementById("add").addEventListener("click", () => {
+    addItemDialog();
   });
   reRenderButtons();
 };
