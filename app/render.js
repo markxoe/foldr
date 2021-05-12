@@ -77,7 +77,6 @@ const initTabSelector = () => {
   // Add change listener
   tabselect.addEventListener("change", function (ev) {
     tabs.setCurrentTabId(this.value);
-    reRenderButtons();
   });
   // Render
   renderTabSelector();
@@ -93,7 +92,6 @@ const addItemDialog = () => {
     .then((val) => {
       if (val.filePaths.length > 0) {
         tabs.addButtonToTab(val.filePaths[0]);
-        reRenderButtons();
       }
       currentWindow.show();
     });
@@ -151,8 +149,6 @@ const init = () => {
             if (tab.id == tabs.currentTabId) {
               tabs.setCurrentTabIdtoLast();
             }
-            renderTabSelector();
-            reRenderButtons();
           },
         })
       );
@@ -161,8 +157,6 @@ const init = () => {
           label: "Auswählen",
           click: () => {
             tabs.setCurrentTabId(tab.id);
-            renderTabSelector();
-            reRenderButtons();
           },
         })
       );
@@ -179,8 +173,6 @@ const init = () => {
         label: "Tab Hinzufügen",
         click: () => {
           tabs.addTab("Tab " + tabs.length());
-          renderTabSelector();
-          reRenderButtons();
         },
       })
     );
@@ -205,8 +197,11 @@ const init = () => {
   });
 
   initTabSelector();
-
   reRenderButtons();
+
+  // Add data listeners
+  tabs.addOnChangeListener(reRenderButtons);
+  tabs.addOnChangeListener(renderTabSelector);
 };
 
 function onButtonClick() {
@@ -219,8 +214,6 @@ function onButtonClickRemove() {
   console.log("Remove", link);
 
   tabs.removeButtonFromTab(currentTabId, link);
-
-  reRenderButtons();
 }
 
 init();
