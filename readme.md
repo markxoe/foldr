@@ -1,4 +1,6 @@
-# Windows Explorer Switcher
+<p align="center"><br><img src="build/icon.png" width="128" height="128" /></p>
+
+# Explorer Switcher
 
 Wechselt zwischen Explorer Fenstern
 
@@ -26,7 +28,7 @@ In den Ordner gehen
 Installiere benötigte Libs
 
 ```bash
-  npm i
+  npm i -D
 ```
 
 Start
@@ -35,6 +37,6 @@ Start
   npm run start
 ```
 
-## Authors
+## Autoren
 
 - [@markxoe](https://www.github.com/markxoe)
