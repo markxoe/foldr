@@ -7,16 +7,18 @@ class AllData {
   ];
   currentTabId = 0;
   store = new electronStore();
+  onChangeListener = [];
 
   constructor(storeName) {
     this.store = new electronStore({ name: storeName });
     this.load();
+    this.addOnChangeListener(() => this.save());
   }
 
   load() {
     if (this.store.has("tabs")) this.alldata = this.store.get("tabs");
     if (this.store.has("currentTab"))
-      this.currentTabId = this.store.get("currentTab");
+      this.currentTabId = Number(this.store.get("currentTab"));
   }
 
   save() {
@@ -25,11 +27,28 @@ class AllData {
   }
 
   /**
+   * Add Listener
+   * @param {()=>void} func Listener
+   */
+  addOnChangeListener(func) {
+    this.onChangeListener = this.onChangeListener.concat(func);
+  }
+
+  /**
+   * Internal function for Triggering onChange listeners
+   * @private
+   */
+  triggerOnChange() {
+    for (let i of this.onChangeListener) i();
+  }
+
+  /**
    * Add empty Tab to Store
    * @param {string} name Name of the Tab
    */
   addTab(name) {
     this.alldata.push({ name, buttons: [] });
+    this.triggerOnChange();
   }
 
   /**
@@ -55,6 +74,7 @@ class AllData {
   addButtonToTab(link) {
     this.alldata[this.currentTabId].buttons =
       this.alldata[this.currentTabId].buttons.concat(link);
+    this.triggerOnChange();
   }
 
   /**
@@ -66,6 +86,7 @@ class AllData {
     this.alldata[this.currentTabId].buttons = this.alldata[
       this.currentTabId
     ].buttons.filter((i) => i != link);
+    this.triggerOnChange();
   }
 
   /**
@@ -77,6 +98,7 @@ class AllData {
     if (index < this.alldata.length && this.alldata.length > 1) {
       this.alldata = this.alldata.filter((val, i) => i != index);
       console.log("Removed tab", index, this.alldata);
+      this.triggerOnChange();
       return true;
     } else return false;
   }
@@ -111,10 +133,12 @@ class AllData {
    */
   setCurrentTabId(id) {
     this.currentTabId = id;
+    this.triggerOnChange();
   }
 
   setCurrentTabIdtoLast() {
     this.currentTabId = this.alldata.length - 1;
+    this.triggerOnChange();
   }
 }
 
