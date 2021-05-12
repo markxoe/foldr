@@ -1,25 +1,38 @@
 {
-  "name": "electron-windows-explorer-thing",
+  "name": "explorer-switcher",
   "version": "0.1.0",
   "main": "index.js",
   "dependencies": {
     "electron-store": "^8.0.0"
   },
   "description": "Switches between Windows Explorer Tabs",
-  "author": "markxoe",
+  "author": {
+    "name": "Mark Oude Elberink",
+    "email": "mark@oude-elberink.de"
+  },
   "scripts": {
     "start": "electron .",
     "build-win": "electron-builder --win --publish never",
     "publish-win": "electron-builder --win --publish onTagOrDraft"
   },
   "devDependencies": {
-    "electron": "^12.0.5",
-    "electron-builder": "^22.10.5"
+    "electron": "^12.0.7",
+    "electron-builder": "^22.11.3"
   },
   "build": {
     "productName": "Explorer Switcher",
+    "appId": "org.toastbrot.explorer-switcher",
+    "copyright": "Copyright © 2021 Mark Oude Elberink",
     "win": {
-      "target": "nsis"
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
     },
     "nsis": {
       "oneClick": false
