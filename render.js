@@ -1,4 +1,5 @@
 const main = document.getElementById("main");
+const crypto = require("crypto");
 
 const electronStore = require("electron-store");
 const electron = require("electron").remote;
@@ -33,6 +34,8 @@ const reRenderButtons = () => {
     newEl.innerText = genInner(link);
     newEl.setAttribute("link", link);
 
+    const colors = getTextAndBackgroundColor(link);
+
     newEl.addEventListener("click", onButtonClick);
     newEl.classList.add("button-inner");
     newElParent.appendChild(newEl);
@@ -42,6 +45,10 @@ const reRenderButtons = () => {
     newElRemove.setAttribute("link", link);
     newElRemove.addEventListener("click", onButtonClickRemove);
     newElRemove.classList.add("button-remove");
+
+    newElParent.style.backgroundColor = colors.background;
+    newEl.style.color = colors.textcolor;
+
     newElParent.appendChild(newElRemove);
     main.appendChild(newElParent);
   });
@@ -88,3 +95,49 @@ function onButtonClickRemove() {
 }
 
 init();
+
+function getTextAndBackgroundColor(link) {
+  let background = "";
+  let textcolor = "";
+
+  const shade =
+    "#" + crypto.createHash("md5").update(link).digest("hex").substring(0, 6);
+
+  background = shade;
+  textcolor = getTextColor(shade);
+
+  return { background: background, textcolor: textcolor };
+}
+
+// Geklauter Code:
+
+function getRGB(c) {
+  return parseInt(c, 16) || c;
+}
+
+function getsRGB(c) {
+  return getRGB(c) / 255 <= 0.03928
+    ? getRGB(c) / 255 / 12.92
+    : Math.pow((getRGB(c) / 255 + 0.055) / 1.055, 2.4);
+}
+
+function getLuminance(hexColor) {
+  return (
+    0.2126 * getsRGB(hexColor.substr(1, 2)) +
+    0.7152 * getsRGB(hexColor.substr(3, 2)) +
+    0.0722 * getsRGB(hexColor.substr(-2))
+  );
+}
+
+function getContrast(f, b) {
+  const L1 = getLuminance(f);
+  const L2 = getLuminance(b);
+  return (Math.max(L1, L2) + 0.05) / (Math.min(L1, L2) + 0.05);
+}
+
+function getTextColor(bgColor) {
+  const whiteContrast = getContrast(bgColor, "#ffffff");
+  const blackContrast = getContrast(bgColor, "#000000");
+
+  return whiteContrast > blackContrast ? "#ffffff" : "#000000";
+}
