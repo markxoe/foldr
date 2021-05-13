@@ -217,32 +217,12 @@ const init = () => {
 
     for (let tab of tabs.getTabNamesAndIndexes()) {
       const subsubMenu = new electron.Menu();
-      subsubMenu.append(
-        new electron.MenuItem({
-          label: "Löschen",
-          click: () => {
-            if (!tabs.removeTab(tab.id))
-              openMessageBox(
-                "warning",
-                "Nicht löschbar",
-                "Diesen Tab kannst du nicht löschen",
-                "Es muss mindestens ein Tab existieren, deshalb kannst du diesen nicht löschen"
-              );
-          },
-        })
-      );
-      subsubMenu.append(
-        new electron.MenuItem({
-          label: "Auswählen",
-          click: () => {
-            tabs.setCurrentTabId(tab.id);
-          },
-        })
-      );
       subMenuTabs.append(
         new electron.MenuItem({
           label: tab.name,
-          submenu: subsubMenu,
+          type: "checkbox",
+          checked: tab.id == tabs.currentTabId,
+          click: (item) => tabs.setCurrentTabId(tab.id),
         })
       );
     }
@@ -255,6 +235,21 @@ const init = () => {
         },
       })
     );
+    subMenuTabs.append(
+      new electron.MenuItem({
+        label: "Tab löschen",
+        click: () => {
+          if (!tabs.removeCurrentTab())
+            openMessageBox(
+              "warning",
+              "Nicht löschbar",
+              "Diesen Tab kannst du nicht löschen",
+              "Es muss mindestens ein Tab existieren, deshalb kannst du diesen nicht löschen"
+            );
+        },
+      })
+    );
+
     mainMenu.append(
       new electron.MenuItem({
         label: "Tabs",

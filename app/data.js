@@ -102,6 +102,17 @@ class AllData {
     } else return false;
   }
 
+  removeCurrentTab() {
+    if (this.alldata.length > 1) {
+      this.alldata = this.alldata.filter((val, i) => i != this.currentTabId);
+
+      tabs.setCurrentTabIdtoLast();
+
+      this.triggerOnChange();
+      return true;
+    } else return false;
+  }
+
   /**
    * Get all Tab Names
    */
