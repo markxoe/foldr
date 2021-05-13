@@ -33,7 +33,6 @@ class AllData {
 
   /**
    * Internal function for Triggering onChange listeners
-   * @private
    */
   triggerOnChange() {
     for (let i of this.onChangeListener) i();

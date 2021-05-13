@@ -67,6 +67,11 @@ const renderTabSelector = () => {
     tabselect.append(_tempEl);
   }
 };
+
+const renderCurrentTabName = () => {
+  const currentTabName = document.getElementById("current-tab-name");
+  currentTabName.innerText = tabs.getCurrentTab().name;
+};
 //#endregion
 
 /**
@@ -78,8 +83,6 @@ const initTabSelector = () => {
   tabselect.addEventListener("change", function (ev) {
     tabs.setCurrentTabId(this.value);
   });
-  // Render
-  renderTabSelector();
 };
 
 /**
@@ -272,11 +275,12 @@ const init = () => {
   });
 
   initTabSelector();
-  reRenderButtons();
 
   // Add data listeners
   tabs.addOnChangeListener(reRenderButtons);
   tabs.addOnChangeListener(renderTabSelector);
+  tabs.addOnChangeListener(renderCurrentTabName);
+  tabs.triggerOnChange();
 };
 
 init();
