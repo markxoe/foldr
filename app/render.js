@@ -186,6 +186,29 @@ const init = () => {
         },
       })
     );
+    subMenuSettings.append(
+      new electron.MenuItem({
+        type: "separator",
+      })
+    );
+    subMenuSettings.append(
+      new electron.MenuItem({
+        label: "Zoom +",
+        role: "zoomIn",
+      })
+    );
+    subMenuSettings.append(
+      new electron.MenuItem({
+        label: "Zoom -",
+        role: "zoomOut",
+      })
+    );
+    subMenuSettings.append(
+      new electron.MenuItem({
+        label: "Zoom 100%",
+        role: "resetZoom",
+      })
+    );
     mainMenu.append(
       new electron.MenuItem({
         label: "Einstellungen",
@@ -206,7 +229,11 @@ const init = () => {
         })
       );
     }
-
+    subMenuTabs.append(
+      new electron.MenuItem({
+        type: "separator",
+      })
+    );
     subMenuTabs.append(
       new electron.MenuItem({
         label: "Tab Hinzufügen",
@@ -265,6 +292,12 @@ const init = () => {
       new electron.MenuItem({
         label: "Ordner hinzufügen",
         click: () => addItemDialog(),
+      })
+    );
+    mainMenu.append(
+      new electron.MenuItem({
+        role: "quit",
+        label: "Schließen",
       })
     );
     mainMenu.popup();
