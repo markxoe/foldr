@@ -201,19 +201,8 @@ const init = () => {
         label: "Sticky",
         checked: ipcRender.sendSync("getSticky"),
         click: (item) => {
-          currentWindow.minimize();
-          electron.dialog
-            .showMessageBox(null, {
-              message: "Bitte starte die App neu",
-              title: "App neu starten",
-              detail:
-                "Die Einstellung wurde übernommen. Nachdem sich die App automatisch geschlossen hat kannst du sie wieder öffnen",
-              type: "info",
-            })
-            .then((val) => {
-              ipcRender.send("setSticky", item.checked);
-              currentWindow.destroy();
-            });
+          ipcRender.send("setSticky", item.checked);
+          currentWindow.setAlwaysOnTop(item.checked);
         },
       })
     );
