@@ -225,6 +225,22 @@ const init = () => {
     );
     subMenuTabs.append(
       new electron.MenuItem({
+        label: "Tab umbenennen",
+        click: () => {
+          prompt({
+            title: "Tab Umbenennen",
+            message: "Gib den Namen des neuen Tabs ein",
+            placeholder: tabs.getCurrentTab().name,
+          })
+            .then((v) => {
+              tabs.renameCurrentTab(v.length ? v : "Tab 3");
+            })
+            .catch(() => {});
+        },
+      })
+    );
+    subMenuTabs.append(
+      new electron.MenuItem({
         label: "Tab löschen",
         click: () => {
           if (!tabs.removeCurrentTab())

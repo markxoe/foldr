@@ -149,6 +149,15 @@ class AllData {
     this.currentTabId = this.alldata.length - 1;
     this.triggerOnChange();
   }
+
+  /**
+   * Rename current tab
+   * @param {string} newName New Tab name
+   */
+  renameCurrentTab(newName) {
+    this.alldata[this.currentTabId].name = newName;
+    this.triggerOnChange();
+  }
 }
 
 const data = new AllData("tabs-n-stuff");
