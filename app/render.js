@@ -56,36 +56,11 @@ const reRenderButtons = () => {
   });
 };
 
-const renderTabSelector = () => {
-  const tabselect = document.getElementById("tabselect");
-  // Empty
-  tabselect.innerHTML = "";
-  // Add Buttons
-  for (let tab of tabs.getTabNamesAndIndexes()) {
-    const _tempEl = document.createElement("option");
-    _tempEl.innerText = tab.name;
-    _tempEl.value = tab.id;
-    _tempEl.selected = tab.id == tabs.currentTabId;
-    tabselect.append(_tempEl);
-  }
-};
-
 const renderCurrentTabName = () => {
   const currentTabName = document.getElementById("current-tab-name");
   currentTabName.innerText = tabs.getCurrentTab().name;
 };
 //#endregion
-
-/**
- * Function to initialize the Tab Selector TODO: May remove it...
- */
-const initTabSelector = () => {
-  const tabselect = document.getElementById("tabselect");
-  // Add change listener
-  tabselect.addEventListener("change", function (ev) {
-    tabs.setCurrentTabId(this.value);
-  });
-};
 
 /**
  * Function to show "Open Directory" window
@@ -286,11 +261,8 @@ const init = () => {
     addItemDialog();
   });
 
-  initTabSelector();
-
   // Add data listeners
   tabs.addOnChangeListener(reRenderButtons);
-  tabs.addOnChangeListener(renderTabSelector);
   tabs.addOnChangeListener(renderCurrentTabName);
   tabs.triggerOnChange();
 };
