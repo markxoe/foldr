@@ -118,6 +118,23 @@ const genInner = (p) => {
   }
 };
 
+/**
+ * Open an electron message box
+ * @param {"info"|"warning"} type
+ * @param {string} title Title
+ * @param {string} message Message
+ * @param {string} more Details
+ * @returns {Promise}
+ */
+const openMessageBox = (type, title, message, more) => {
+  return electron.dialog.showMessageBox(null, {
+    message,
+    title,
+    detail: more,
+    type,
+  });
+};
+
 //#region Helper functions Coloring
 function getTextAndBackgroundColor(link) {
   let background = "";
@@ -215,10 +232,13 @@ const init = () => {
         new electron.MenuItem({
           label: "Löschen",
           click: () => {
-            tabs.removeTab(tab.id);
-            if (tab.id == tabs.currentTabId) {
-              tabs.setCurrentTabIdtoLast();
-            }
+            if (!tabs.removeTab(tab.id))
+              openMessageBox(
+                "warning",
+                "Nicht löschbar",
+                "Diesen Tab kannst du nicht löschen",
+                "Es muss mindestens ein Tab existieren, deshalb kannst du diesen nicht löschen"
+              );
           },
         })
       );

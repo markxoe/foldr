@@ -1,10 +1,7 @@
 const electronStore = require("electron-store");
 
 class AllData {
-  alldata = [
-    { name: "Tab 0", buttons: ["C:/Users/marko"] },
-    { name: "Tab 4", buttons: ["C:/"] },
-  ];
+  alldata = [{ name: "Tab 0", buttons: ["C:/Users/"] }];
   currentTabId = 0;
   store = new electronStore();
   onChangeListener = [];
@@ -97,7 +94,9 @@ class AllData {
   removeTab(index) {
     if (index < this.alldata.length && this.alldata.length > 1) {
       this.alldata = this.alldata.filter((val, i) => i != index);
-      console.log("Removed tab", index, this.alldata);
+      if (index == this.currentTabId) {
+        tabs.setCurrentTabIdtoLast();
+      }
       this.triggerOnChange();
       return true;
     } else return false;
