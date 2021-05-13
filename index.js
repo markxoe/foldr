@@ -17,6 +17,8 @@ const createWindow = () => {
     frame: false,
     height: 200,
     width: 600,
+    minHeight: 100,
+    minWidth: 300,
   });
   mainWindow.loadFile("app/index.html");
 
