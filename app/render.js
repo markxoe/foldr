@@ -4,7 +4,8 @@ const crypto = require("crypto");
 const electron = require("electron").remote;
 const ipcRender = require("electron").ipcRenderer;
 
-const prompt = require("electron-prompt");
+//const prompt = require("electron-prompt");
+const prompt = require("./prompts/index");
 
 const currentWindow = electron.getCurrentWindow();
 
@@ -212,16 +213,14 @@ const init = () => {
         label: "Tab Hinzufügen",
         click: () => {
           prompt({
-            title: "Neuer Tab",
-            alwaysOnTop: true,
-            type: "input",
-            value: "Tab 3",
-            label: "Name des neuen Tabs",
-            buttonLabels: { cancel: "Abbrechen", ok: "Ok" },
-          }).then((v) => {
-            tabs.addTab(v.length ? v : "Tab 3");
-          });
-          //tabs.addTab("Tab " + tabs.length());
+            title: "Tab Hinzufügen",
+            message: "Gib den Namen des neuen Tabs ein",
+            placeholder: "Tab 12",
+          })
+            .then((v) => {
+              tabs.addTab(v.length ? v : "Tab 3");
+            })
+            .catch(() => {});
         },
       })
     );
