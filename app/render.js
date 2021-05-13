@@ -5,14 +5,9 @@ const electronStore = require("electron-store");
 const electron = require("electron").remote;
 const ipcRender = require("electron").ipcRenderer;
 
-const store = new electronStore({ name: "buttons" });
 const currentWindow = electron.getCurrentWindow();
 
-let buttons = [];
-
 const tabs = require("./data");
-
-let currentTabId = 0;
 
 const genInner = (p) => {
   if (typeof p == "string") {
@@ -40,14 +35,20 @@ const reRenderButtons = () => {
 
     const colors = getTextAndBackgroundColor(link);
 
-    newEl.addEventListener("click", onButtonClick);
+    newEl.addEventListener("click", function () {
+      const link = this.getAttribute("link");
+      electron.shell.openExternal(link);
+    });
     newEl.classList.add("button-inner");
     newElParent.appendChild(newEl);
     newElParent.classList.add("button-outer");
     const newElRemove = document.createElement("button");
     newElRemove.innerHTML = "&times;";
     newElRemove.setAttribute("link", link);
-    newElRemove.addEventListener("click", onButtonClickRemove);
+    newElRemove.addEventListener("click", function () {
+      const link = this.getAttribute("link");
+      tabs.removeButtonFromTab(link);
+    });
     newElRemove.classList.add("button-remove");
 
     newElParent.style.backgroundColor = colors.background;
@@ -203,18 +204,6 @@ const init = () => {
   tabs.addOnChangeListener(reRenderButtons);
   tabs.addOnChangeListener(renderTabSelector);
 };
-
-function onButtonClick() {
-  const link = this.getAttribute("link");
-  electron.shell.openExternal(link);
-}
-
-function onButtonClickRemove() {
-  const link = this.getAttribute("link");
-  console.log("Remove", link);
-
-  tabs.removeButtonFromTab(currentTabId, link);
-}
 
 init();
 
