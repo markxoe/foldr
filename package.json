@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "main": "index.js",
   "dependencies": {
-    "electron-prompt": "^1.6.2",
     "electron-store": "^8.0.0"
   },
   "description": "Switches between Windows Explorer Tabs",
