@@ -158,6 +158,16 @@ class AllData {
     this.alldata[this.currentTabId].name = newName;
     this.triggerOnChange();
   }
+
+  deleteAllEmptyTabs() {
+    this.alldata = this.alldata.filter((i) => i.buttons.length > 0);
+    if (this.alldata.length == 0) {
+      this.alldata = [{ name: "Tab 0", buttons: [] }];
+    }
+    tabs.setCurrentTabIdtoLast();
+
+    this.triggerOnChange();
+  }
 }
 
 const data = new AllData("tabs-n-stuff");

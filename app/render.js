@@ -280,6 +280,19 @@ const init = () => {
         },
       })
     );
+    subMenuTabs.append(
+      new electron.MenuItem({
+        type: "separator",
+      })
+    );
+    subMenuTabs.append(
+      new electron.MenuItem({
+        label: "Alle leeren Tabs löschen",
+        click: () => {
+          tabs.deleteAllEmptyTabs();
+        },
+      })
+    );
 
     mainMenu.append(
       new electron.MenuItem({
