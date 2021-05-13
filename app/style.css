@@ -89,8 +89,6 @@ body {
   position: fixed;
   bottom: 10px;
   right: 10px;
-
-  box-shadow: 0 0 5px;
 }
 
 .bobbel:hover {
