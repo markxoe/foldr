@@ -2,9 +2,8 @@ name: Build dev
 
 on:
   push:
-    branches:
-      - dev
-
+    branches-ignore:
+      - master
 jobs:
   build:
     runs-on: windows-latest
