@@ -31,11 +31,22 @@
             "x64",
             "ia32"
           ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
         }
       ]
     },
     "nsis": {
-      "oneClick": false
+      "oneClick": false,
+      "artifactName": "${productName}-${version}-Setup.${ext}"
+    },
+    "portable": {
+      "artifactName": "${productName}-${version}-Portable.${ext}"
     }
   }
 }
