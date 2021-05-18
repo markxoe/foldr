@@ -1,10 +1,11 @@
 const electronStore = require("electron-store");
-
+const defaultLangId = require("./i18n").defaultLangId;
 class AllData {
   alldata = [{ name: "Tab 0", buttons: ["C:/Users/"] }];
   currentTabId = 0;
   store = new electronStore();
   onChangeListener = [];
+  langId = defaultLangId;
 
   constructor(storeName) {
     this.store = new electronStore({ name: storeName });
@@ -16,11 +17,13 @@ class AllData {
     if (this.store.has("tabs")) this.alldata = this.store.get("tabs");
     if (this.store.has("currentTab"))
       this.currentTabId = Number(this.store.get("currentTab"));
+    if (this.store.has("lang")) this.langId = this.store.get("lang");
   }
 
   save() {
     this.store.set("tabs", this.alldata);
     this.store.set("currentTab", this.currentTabId);
+    this.store.set("lang", this.langId);
   }
 
   /**
@@ -165,6 +168,12 @@ class AllData {
       this.alldata = [{ name: "Tab 0", buttons: [] }];
     }
     tabs.setCurrentTabIdtoLast();
+
+    this.triggerOnChange();
+  }
+
+  setLangId(id) {
+    this.langId = id;
 
     this.triggerOnChange();
   }
