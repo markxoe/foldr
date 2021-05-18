@@ -10,6 +10,10 @@ const currentWindow = electron.getCurrentWindow();
 
 const tabs = require("./data");
 
+const i18n = require("./i18n");
+
+let currentLang = i18n.getLang(tabs.langId);
+
 //#region Rendering functions
 const reRenderButtons = () => {
   main.innerHTML = "";
@@ -82,6 +86,10 @@ const addItemDialog = () => {
 };
 
 //#region Helper functions
+
+const refreshCurrentLang = () => {
+  currentLang = i18n.getLang(tabs.langId);
+};
 
 const genInner = (p) => {
   if (typeof p == "string") {
@@ -175,6 +183,7 @@ const init = () => {
 
   document.getElementById("more").addEventListener("click", () => {
     const mainMenu = new electron.Menu();
+    //#region Menu Settings
     const subMenuSettings = new electron.Menu();
     subMenuSettings.append(
       new electron.MenuItem({
@@ -187,6 +196,29 @@ const init = () => {
         },
       })
     );
+
+    //#region Menu Lang
+    const subSubMenuLang = new electron.Menu();
+    i18n.getLangs().forEach((i) => {
+      console.log({ t: tabs.langId, i: i.id }, tabs.langId == i.id);
+      subSubMenuLang.append(
+        new electron.MenuItem({
+          label: i.name,
+          checked: tabs.langId == i.id,
+          click: () => {
+            tabs.setLangId(i.id);
+          },
+          type: "checkbox",
+        })
+      );
+    });
+
+    subMenuSettings.append(
+      new electron.MenuItem({ label: "Language", submenu: subSubMenuLang })
+    );
+    //#endregion
+
+    //#region Zoom
     subMenuSettings.append(
       new electron.MenuItem({
         type: "separator",
@@ -210,13 +242,18 @@ const init = () => {
         role: "resetZoom",
       })
     );
+    //#endregion
+
     mainMenu.append(
       new electron.MenuItem({
-        label: "Einstellungen",
+        label: currentLang.settings,
         submenu: subMenuSettings,
       })
     );
 
+    //#endregion
+
+    //#region Menu Tabs
     const subMenuTabs = new electron.Menu();
 
     for (let tab of tabs.getTabNamesAndIndexes()) {
@@ -237,11 +274,11 @@ const init = () => {
     );
     subMenuTabs.append(
       new electron.MenuItem({
-        label: "Tab Hinzufügen",
+        label: currentLang["add-tab"],
         click: () => {
           prompt({
-            title: "Tab Hinzufügen",
-            message: "Gib den Namen des neuen Tabs ein",
+            title: currentLang["add-tab"],
+            message: currentLang["new-tab-name"],
             placeholder: "Tab 12",
           })
             .then((v) => {
@@ -253,11 +290,11 @@ const init = () => {
     );
     subMenuTabs.append(
       new electron.MenuItem({
-        label: "Tab umbenennen",
+        label: currentLang["rename-tab"],
         click: () => {
           prompt({
-            title: "Tab Umbenennen",
-            message: "Gib den Namen des neuen Tabs ein",
+            title: currentLang["rename-tab"],
+            message: currentLang["new-tab-name"],
             placeholder: tabs.getCurrentTab().name,
           })
             .then((v) => {
@@ -269,7 +306,7 @@ const init = () => {
     );
     subMenuTabs.append(
       new electron.MenuItem({
-        label: "Tab löschen",
+        label: currentLang["delete-tab"],
         click: () => {
           if (!tabs.removeCurrentTab())
             openMessageBox(
@@ -288,7 +325,7 @@ const init = () => {
     );
     subMenuTabs.append(
       new electron.MenuItem({
-        label: "Alle leeren Tabs löschen",
+        label: currentLang["delete-all-empty-tabs"],
         click: () => {
           tabs.deleteAllEmptyTabs();
         },
@@ -301,17 +338,18 @@ const init = () => {
         submenu: subMenuTabs,
       })
     );
+    //#endregion
 
     mainMenu.append(
       new electron.MenuItem({
-        label: "Ordner hinzufügen",
+        label: currentLang["add-folder"],
         click: () => addItemDialog(),
       })
     );
     mainMenu.append(
       new electron.MenuItem({
         role: "quit",
-        label: "Schließen",
+        label: currentLang.close,
       })
     );
     mainMenu.popup();
@@ -325,6 +363,7 @@ const init = () => {
   // Add data listeners
   tabs.addOnChangeListener(reRenderButtons);
   tabs.addOnChangeListener(renderCurrentTabName);
+  tabs.addOnChangeListener(refreshCurrentLang);
   tabs.triggerOnChange();
 };
 
