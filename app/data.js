@@ -1,7 +1,7 @@
 const electronStore = require("electron-store");
 const defaultLangId = require("./i18n").defaultLangId;
 class AllData {
-  alldata = [{ name: "Tab 0", buttons: ["C:/Users/"] }];
+  alldata = [{ name: "Tab 0", buttons: ["C:\\Users\\"] }];
   currentTabId = 0;
   store = new electronStore();
   onChangeListener = [];

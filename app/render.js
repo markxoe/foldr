@@ -93,7 +93,7 @@ const refreshCurrentLang = () => {
 
 const genInner = (p) => {
   if (typeof p == "string") {
-    if (p.match(/[\/\\]/g)) {
+    if (p.match(/([\/\\][^\/\\]*)/g) && p.length > 10) {
       const l = p.match(/([\/\\][^\/\\]*)/g);
       let out = "...";
       if (l.length >= 2) out += l[l.length - 2];
