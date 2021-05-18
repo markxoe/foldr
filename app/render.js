@@ -47,6 +47,7 @@ const reRenderButtons = () => {
     // Set Styling
     rootEl.style.backgroundColor = colors.background;
     buttonEl.style.color = colors.textcolor;
+    buttonRemoveEl.style.color = colors.textcolor;
 
     // Add inner elements to root
     rootEl.appendChild(buttonEl);
