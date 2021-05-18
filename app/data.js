@@ -177,6 +177,15 @@ class AllData {
 
     this.triggerOnChange();
   }
+
+  /**
+   *
+   * @param {()=>any} quit Quit function to be called
+   */
+  deleteAndQuit(quit) {
+    this.store.clear();
+    quit();
+  }
 }
 
 const data = new AllData("tabs-n-stuff");

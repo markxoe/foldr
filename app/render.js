@@ -244,6 +244,22 @@ const init = () => {
     );
     //#endregion
 
+    //#region Delete Everything
+    subMenuSettings.append(
+      new electron.MenuItem({
+        type: "separator",
+      })
+    );
+    subMenuSettings.append(
+      new electron.MenuItem({
+        label: currentLang["delete-everything-and-close"],
+        click: () => {
+          tabs.deleteAndQuit(() => currentWindow.close());
+        },
+      })
+    );
+    //#endregion
+
     mainMenu.append(
       new electron.MenuItem({
         label: currentLang.settings,
