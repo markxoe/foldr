@@ -28,7 +28,7 @@ button {
   flex-wrap: wrap;
 }
 
-button:hover {
+#main button:hover {
   background-color: #ffffff70 !important;
 }
 
@@ -121,4 +121,42 @@ body {
 }
 .inner::-webkit-scrollbar-track {
   background-color: rgba(0, 0, 0, 0);
+}
+
+.prompt {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: #202124;
+  width: 200px;
+  box-shadow: #0000006e 0 0 50px;
+  transform: translate(-50%, -50%);
+  padding: 15px;
+}
+
+.prompt section {
+  margin: 0;
+  margin-bottom: 10px;
+}
+.prompt section:last-child {
+  margin-bottom: 0;
+}
+
+.prompt p {
+  margin: 0;
+  color: #ffffff;
+}
+
+.prompt button {
+  border: 0;
+  background-color: #ff1534;
+  border-radius: 2px;
+}
+
+.prompt button:hover {
+  filter: brightness(0.75) !important;
+}
+
+.prompt button#input-ok {
+  background-color: #158eff;
 }

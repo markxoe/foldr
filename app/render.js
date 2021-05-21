@@ -4,7 +4,7 @@ const crypto = require("crypto");
 const electron = require("electron").remote;
 const ipcRender = require("electron").ipcRenderer;
 
-const prompt = require("./prompts/index");
+const prompt = require("./prompt");
 
 const currentWindow = electron.getCurrentWindow();
 
