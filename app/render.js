@@ -296,6 +296,8 @@ const init = () => {
             title: currentLang["add-tab"],
             message: currentLang["new-tab-name"],
             placeholder: "Tab 12",
+            oklabel: currentLang.ok,
+            cancellabel: currentLang.cancel,
           })
             .then((v) => {
               tabs.addTab(v.length ? v : "Tab 3");
@@ -312,6 +314,8 @@ const init = () => {
             title: currentLang["rename-tab"],
             message: currentLang["new-tab-name"],
             placeholder: tabs.getCurrentTab().name,
+            oklabel: currentLang.ok,
+            cancellabel: currentLang.cancel,
           })
             .then((v) => {
               tabs.renameCurrentTab(v.length ? v : "Tab 3");

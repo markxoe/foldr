@@ -2,7 +2,7 @@
 
 const path = require("path");
 
-/** @type {{[key:string]:{meta:{name:string},"settings":string,"tabs":string,"add-tab":string,"delete-tab":string,"rename-tab":string,"delete-all-empty-tabs":string,"add-folder":string,"close":string,"new-tab-name":string,"delete-everything-and-close":string}}} */
+/** @type {{[key:string]:{meta:{name:string},"settings":string,"tabs":string,"add-tab":string,"delete-tab":string,"rename-tab":string,"delete-all-empty-tabs":string,"add-folder":string,"close":string,"new-tab-name":string,"delete-everything-and-close":string,"ok":string,"cancel":string}}} */
 let langs = {
   de: {
     meta: {
@@ -18,6 +18,8 @@ let langs = {
     close: "Schließen",
     "new-tab-name": "Bitte gib einen neuen Namen für den Tab ein",
     "delete-everything-and-close": "Lösche alles und schließe App",
+    ok: "Ok",
+    cancel: "Abbrechen",
   },
   en: {
     meta: {
@@ -33,6 +35,8 @@ let langs = {
     tabs: "Tab",
     "new-tab-name": "Please enter a new tab name",
     "delete-everything-and-close": "Delete everything and exit",
+    cancel: "Cancel",
+    ok: "Ok",
   },
 };
 

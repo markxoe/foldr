@@ -1,6 +1,6 @@
 /**
  *
- * @param {{title:string;message:string;placeholder:string;}} options
+ * @param {{title:string;message:string;placeholder:string;oklabel:string;cancellabel:string}} options
  * @returns {Promise<string>}
  */
 const prompt = (options) => {
@@ -34,6 +34,9 @@ const prompt = (options) => {
 
     buttonCancelEL.addEventListener("click", cancelClickListener);
     buttonOkEl.addEventListener("click", okClickListener);
+
+    buttonCancelEL.innerText = options.cancellabel;
+    buttonOkEl.innerText = options.oklabel;
 
     const cleanUp = () => {
       promptEl.setAttribute("hidden", "");
