@@ -19,40 +19,5 @@
   "devDependencies": {
     "electron": "^12.0.7",
     "electron-builder": "^22.11.3"
-  },
-  "build": {
-    "productName": "Explorer Switcher",
-    "appId": "org.toastbrot.explorer-switcher",
-    "copyright": "Copyright © 2021 Mark Oude Elberink",
-    "publish": {
-      "provider": "github",
-      "repo": "explorer-switcher",
-      "owner": "markxoe"
-    },
-    "win": {
-      "target": [
-        {
-          "target": "nsis",
-          "arch": [
-            "x64",
-            "ia32"
-          ]
-        },
-        {
-          "target": "portable",
-          "arch": [
-            "x64",
-            "ia32"
-          ]
-        }
-      ]
-    },
-    "nsis": {
-      "oneClick": false,
-      "artifactName": "${productName}-${version}-Setup.${ext}"
-    },
-    "portable": {
-      "artifactName": "${productName}-${version}-Portable.${ext}"
-    }
   }
 }
