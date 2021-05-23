@@ -2,12 +2,13 @@ const electron = require("electron");
 const electronStore = require("electron-store");
 const path = require("path");
 const { autoUpdater } = require("electron-updater");
-electronStore.initRenderer();
-
-const store = new electronStore({ name: "main" });
-
 const renderStore = require("./app/data");
 const i18n = require("./app/i18n");
+
+electronStore.initRenderer();
+const store = new electronStore({ name: "main" });
+
+const app = electron.app;
 
 let languageId = renderStore.langId;
 const currentLang = i18n.getLang(languageId);
@@ -50,7 +51,7 @@ const createWindow = () => {
     });
     notification.show();
 
-    electron.app.setBadgeCount(1);
+    app.setBadgeCount(1);
   });
 
   autoUpdater.on("error", (err) => {
@@ -66,4 +67,18 @@ const createWindow = () => {
   autoUpdater.checkForUpdates().catch(console.error);
 };
 
-electron.app.whenReady().then(() => createWindow());
+app.whenReady().then(() => {
+  createWindow();
+
+  app.on("activate", () => {
+    if (electron.BrowserWindow.getAllWindows().length === 0) {
+      createWindow();
+    }
+  });
+});
+
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") {
+    app.quit();
+  }
+});
