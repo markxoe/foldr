@@ -13,6 +13,7 @@
   },
   "scripts": {
     "start": "electron .",
+    "test": "node test/test.js",
     "build-win": "electron-builder --win --publish never",
     "publish-win": "electron-builder --win --publish onTagOrDraft",
     "build-mac": "electron-builder --mac --publish never",
@@ -22,6 +23,7 @@
   },
   "devDependencies": {
     "electron": "^12.0.7",
-    "electron-builder": "^22.11.3"
+    "electron-builder": "^22.11.3",
+    "spectron": "^14.0.0"
   }
 }

@@ -5,7 +5,19 @@ on:
     branches: [master]
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install
+        run: npm ci
+
+      - name: Test
+        run: npm test
+
   build-win:
+    needs: test
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
@@ -19,6 +31,7 @@ jobs:
           GH_TOKEN: ${{ secrets.github_token }}
 
   build-mac:
+    needs: test
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
