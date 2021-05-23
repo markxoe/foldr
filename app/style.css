@@ -147,16 +147,20 @@ body {
   color: #ffffff;
 }
 
-.prompt button {
+.prompt #input-cancel {
+  background-color: #00000000 !important;
   border: 0;
-  background-color: #ff1534;
+  color: #ffffff;
+  border-radius: 2px;
+}
+
+.prompt button#input-ok {
+  background-color: #147aca;
+  color: #ffffff;
+  border: 0;
   border-radius: 2px;
 }
 
 .prompt button:hover {
-  filter: brightness(0.75) !important;
-}
-
-.prompt button#input-ok {
-  background-color: #158eff;
+  filter: brightness(0.6) !important;
 }
