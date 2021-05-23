@@ -28,7 +28,7 @@ const prompt = (options) => {
     };
 
     const cancelClickListener = () => {
-      resolve("");
+      reject();
       cleanUp();
     };
 
