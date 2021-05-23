@@ -20,6 +20,17 @@
       }
     ]
   },
+  "mac": {
+    "category": "public.app-category.productivity",
+    "target": [
+      {
+        "target": "dmg"
+      }
+    ]
+  },
+  "dmg": {
+    "artifactName": "${productName}-${version}-Setup.${ext}"
+  },
   "nsis": {
     "oneClick": false,
     "artifactName": "${productName}-${version}-Setup.${ext}"

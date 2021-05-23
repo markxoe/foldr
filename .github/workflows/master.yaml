@@ -5,7 +5,7 @@ on:
     branches: [master]
 
 jobs:
-  build:
+  build-win:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
@@ -15,5 +15,18 @@ jobs:
 
       - name: Build
         run: npm run publish-win
+        env:
+          GH_TOKEN: ${{ secrets.github_token }}
+
+  build-mac:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run publish-mac
         env:
           GH_TOKEN: ${{ secrets.github_token }}

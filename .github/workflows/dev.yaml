@@ -5,7 +5,7 @@ on:
     branches-ignore:
       - master
 jobs:
-  build:
+  build-win:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v2
@@ -16,8 +16,13 @@ jobs:
       - name: Build
         run: npm run build-win
 
-      - name: Upload exe artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: setup and portable
-          path: dist/*.exe
+  build-mac:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install
+        run: npm ci
+
+      - name: Build
+        run: npm run build-mac

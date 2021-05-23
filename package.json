@@ -14,7 +14,11 @@
   "scripts": {
     "start": "electron .",
     "build-win": "electron-builder --win --publish never",
-    "publish-win": "electron-builder --win --publish onTagOrDraft"
+    "publish-win": "electron-builder --win --publish onTagOrDraft",
+    "build-mac": "electron-builder --mac --publish never",
+    "publish-mac": "electron-builder --mac --publish onTagOrDraft",
+    "build-all": "electron-builder -mw --publish never",
+    "publish-all": "electron-builder -mw --publish onTagOrDraft"
   },
   "devDependencies": {
     "electron": "^12.0.7",
