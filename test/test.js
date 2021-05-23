@@ -16,7 +16,7 @@ app
     return app.client.getTitle();
   })
   .then(function (title) {
-    if (title != "Explorer Switcher") throw Error("Wrong title ," + title);
+    if (title != "Foldr") throw Error("Wrong title ," + title);
   })
   .then(() => {
     return app.client.auditAccessibility({}).then((audit) => {

@@ -1,13 +1,13 @@
 {
-  "name": "explorer-switcher",
-  "productName": "Explorer Switcher",
+  "name": "foldr",
+  "productName": "foldr",
   "version": "0.1.0",
   "main": "index.js",
   "dependencies": {
     "electron-store": "^8.0.0",
     "electron-updater": "^4.3.9"
   },
-  "description": "Switches between Windows Explorer Tabs",
+  "description": "Switches between filemanager Tabs on Desktop",
   "author": {
     "name": "Mark Oude Elberink",
     "email": "mark@oude-elberink.de"

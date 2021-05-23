@@ -1,11 +1,11 @@
 {
   "$schema": "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
-  "productName": "Explorer Switcher",
-  "appId": "org.toastbrot.explorer-switcher",
+  "productName": "Foldr",
+  "appId": "org.toastbrot.foldr",
   "copyright": "Copyright © 2021 Mark Oude Elberink",
   "publish": {
     "provider": "github",
-    "repo": "explorer-switcher",
+    "repo": "foldr",
     "owner": "markxoe"
   },
   "win": {
