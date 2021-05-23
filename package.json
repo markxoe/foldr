@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "main": "index.js",
   "dependencies": {
-    "electron-store": "^8.0.0"
+    "electron-store": "^8.0.0",
+    "electron-updater": "^4.3.9"
   },
   "description": "Switches between Windows Explorer Tabs",
   "author": {
@@ -23,6 +24,11 @@
     "productName": "Explorer Switcher",
     "appId": "org.toastbrot.explorer-switcher",
     "copyright": "Copyright © 2021 Mark Oude Elberink",
+    "publish": {
+      "provider": "github",
+      "repo": "explorer-switcher",
+      "owner": "markxoe"
+    },
     "win": {
       "target": [
         {
