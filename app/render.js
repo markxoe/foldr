@@ -34,7 +34,7 @@ const reRenderButtons = () => {
     // Add event listener for onClick event
     buttonEl.addEventListener("click", function () {
       const link = this.getAttribute("link"); // Get Link and open
-      electron.shell.openExternal(link);
+      electron.shell.openPath(link);
     });
 
     // Generate inner remove button element
