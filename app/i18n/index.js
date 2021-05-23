@@ -2,7 +2,7 @@
 
 const path = require("path");
 
-/** @type {{[key:string]:{meta:{name:string},"settings":string,"tabs":string,"add-tab":string,"delete-tab":string,"rename-tab":string,"delete-all-empty-tabs":string,"add-folder":string,"close":string,"new-tab-name":string,"delete-everything-and-close":string,"ok":string,"cancel":string,"error":string,"error updating","update {id} found":(id:string)=>string,"update {id} found, installation after close":(id:string)=>string}}} */
+/** @type {{[key:string]:{meta:{name:string},"settings":string,"tabs":string,"add-tab":string,"delete-tab":string,"rename-tab":string,"delete-all-empty-tabs":string,"add-folder":string,"close":string,"new-tab-name":string,"delete-everything-and-close":string,"ok":string,"cancel":string,"error":string,"error updating","update {id} found":(id:string)=>string,"update {id} found, installation after close":(id:string)=>string,"about":string,"check for updates":string}}} */
 let langs = {
   de: {
     meta: {
@@ -25,6 +25,8 @@ let langs = {
     "update {id} found": (id) => `Update ${id} gefunden`,
     "update {id} found, installation after close": (id) =>
       `Update ${id} gefunden, automatische installation nach dem nächsten Schließen`,
+    about: "Über",
+    "check for updates": "Suche nach Updates",
   },
   en: {
     meta: {
@@ -47,6 +49,8 @@ let langs = {
     "update {id} found": (id) => `Update ${id} found`,
     "update {id} found, installation after close": (id) =>
       `Update ${id} found, automatic installation after next closing`,
+    about: "About",
+    "check for updates": "Check for updates",
   },
 };
 

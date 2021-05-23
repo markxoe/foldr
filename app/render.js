@@ -183,6 +183,7 @@ const init = () => {
 
   document.getElementById("more").addEventListener("click", () => {
     const mainMenu = new electron.Menu();
+
     //#region Menu Settings
     const subMenuSettings = new electron.Menu();
     subMenuSettings.append(
@@ -358,6 +359,39 @@ const init = () => {
         submenu: subMenuTabs,
       })
     );
+    //#endregion
+
+    //#region About
+    const subMenuAbout = new electron.Menu();
+
+    subMenuAbout.append(
+      new electron.MenuItem({
+        label: `${currentWindow.getTitle()} ${electron.app.getVersion()}`,
+        enabled: false,
+      })
+    );
+    subMenuAbout.append(
+      new electron.MenuItem({
+        type: "separator",
+      })
+    );
+
+    subMenuAbout.append(
+      new electron.MenuItem({
+        label: currentLang["check for updates"],
+        click: () => {
+          ipcRender.send("check-for-updates");
+        },
+      })
+    );
+
+    mainMenu.append(
+      new electron.MenuItem({
+        label: currentLang["about"],
+        submenu: subMenuAbout,
+      })
+    );
+
     //#endregion
 
     mainMenu.append(

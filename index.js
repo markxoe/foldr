@@ -65,6 +65,10 @@ const createWindow = () => {
   });
 
   autoUpdater.checkForUpdates().catch(console.error);
+
+  electron.ipcMain.on("check-for-updates", (event) => {
+    autoUpdater.checkForUpdates();
+  });
 };
 
 app.whenReady().then(() => {
