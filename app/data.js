@@ -1,14 +1,33 @@
 const electronStore = require("electron-store");
 const defaultLangId = require("./i18n").defaultLangId;
 class AllData {
-  alldata = [{ name: "Tab 0", buttons: ["C:\\Users\\"] }];
-  currentTabId = 0;
-  store = new electronStore();
-  onChangeListener = [];
-  langId = defaultLangId;
+  /** @type {Array<{name:string;buttons:Array<string>}>} */
+  alldata;
+  /** @type {number} */
+  currentTabId;
+  /** @type {electronStore} */
+  store;
+  /** @type {Array<()=>any>} */
+  onChangeListener;
+  /** @type {string} */
+  langId;
 
   constructor(storeName) {
+    switch (process.platform) {
+      case "win32":
+        this.alldata = [{ name: "Tab 0", buttons: ["C:\\Users\\"] }];
+        break;
+      case "darwin":
+        this.alldata = [{ name: "Tab 0", buttons: ["/Applications"] }];
+        break;
+      default:
+        this.alldata = [{ name: "Tab 0", buttons: ["/"] }];
+    }
+    this.langId = defaultLangId;
+    this.onChangeListener = [];
+    this.currentTabId = 0;
     this.store = new electronStore({ name: storeName });
+
     this.load();
     this.addOnChangeListener(() => this.save());
   }
