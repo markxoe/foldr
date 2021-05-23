@@ -2,7 +2,7 @@
 
 const path = require("path");
 
-/** @type {{[key:string]:{meta:{name:string},"settings":string,"tabs":string,"add-tab":string,"delete-tab":string,"rename-tab":string,"delete-all-empty-tabs":string,"add-folder":string,"close":string,"new-tab-name":string,"delete-everything-and-close":string,"ok":string,"cancel":string}}} */
+/** @type {{[key:string]:{meta:{name:string},"settings":string,"tabs":string,"add-tab":string,"delete-tab":string,"rename-tab":string,"delete-all-empty-tabs":string,"add-folder":string,"close":string,"new-tab-name":string,"delete-everything-and-close":string,"ok":string,"cancel":string,"error":string,"error updating","update {id} found":(id:string)=>string,"update {id} found, installation after close":(id:string)=>string}}} */
 let langs = {
   de: {
     meta: {
@@ -20,6 +20,11 @@ let langs = {
     "delete-everything-and-close": "Lösche alles und schließe App",
     ok: "Ok",
     cancel: "Abbrechen",
+    error: "Fehler",
+    "error updating": "Fehler beim Herunterladen von Updates",
+    "update {id} found": (id) => `Update ${id} gefunden`,
+    "update {id} found, installation after close": (id) =>
+      `Update ${id} gefunden, automatische installation nach dem nächsten Schließen`,
   },
   en: {
     meta: {
@@ -37,6 +42,11 @@ let langs = {
     "delete-everything-and-close": "Delete everything and exit",
     cancel: "Cancel",
     ok: "Ok",
+    error: "Error",
+    "error updating": "Error downloading updates",
+    "update {id} found": (id) => `Update ${id} found`,
+    "update {id} found, installation after close": (id) =>
+      `Update ${id} found, automatic installation after next closing`,
   },
 };
 

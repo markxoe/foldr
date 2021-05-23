@@ -6,6 +6,11 @@ electronStore.initRenderer();
 
 const store = new electronStore({ name: "main" });
 
+const renderStore = require("./app/data");
+const i18n = require("./app/i18n");
+
+let languageId = renderStore.langId;
+const currentLang = i18n.getLang(languageId);
 let mainWindow;
 
 const createWindow = () => {
@@ -31,15 +36,18 @@ const createWindow = () => {
     event.returnValue = store.has("sticky") ? store.get("sticky") : true;
   });
 
+  console.log(languageId);
+
   autoUpdater.on("update-available", (args) => {
     /** @type {{version:string;releaseName:string;releaseDate:string}} */
     let info = args;
     let notification = new electron.Notification({
-      title: `Update ${info.version} gefunden`,
-      body: `Update ${info.version} gefunden und heruntergeladen, wird nach dem nächsten Schließen automatisch installiert`,
+      title: currentLang["update {id} found"](info.version),
+      body: currentLang["update {id} found, installation after close"](
+        info.version
+      ),
       icon: path.join(__dirname, "assets", "notification-icon.png"),
     });
-
     notification.show();
 
     electron.app.setBadgeCount(1);
@@ -48,11 +56,10 @@ const createWindow = () => {
   autoUpdater.on("error", (err) => {
     console.error(err);
     let notification = new electron.Notification({
-      title: `Fehler`,
-      body: `Fehler beim herunterladen von Updates`,
+      title: currentLang["error"],
+      body: currentLang["error updating"],
       icon: path.join(__dirname, "assets", "notification-icon.png"),
     });
-
     notification.show();
   });
 
