@@ -22,11 +22,8 @@
   },
   "mac": {
     "category": "public.app-category.productivity",
-    "target": [
-      {
-        "target": "dmg"
-      }
-    ]
+
+    "target": ["default"]
   },
   "dmg": {
     "artifactName": "${productName}-${version}-Setup.${ext}"
