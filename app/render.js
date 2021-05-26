@@ -37,6 +37,14 @@ const reRenderButtons = () => {
       electron.shell.openPath(link);
     });
 
+    rootEl.addEventListener("contextmenu", (ev) => {
+      new electron.Notification({
+        title: currentLang["copied path to clipboard"],
+        body: `(${link})`,
+      }).show();
+      electron.clipboard.writeText(link);
+    });
+
     // Generate inner remove button element
     const buttonRemoveEl = document.createElement("button");
     buttonRemoveEl.classList.add("button-remove");

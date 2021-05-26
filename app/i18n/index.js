@@ -2,7 +2,7 @@
 
 const path = require("path");
 
-/** @type {{[key:string]:{meta:{name:string},"settings":string,"tabs":string,"add-tab":string,"delete-tab":string,"rename-tab":string,"delete-all-empty-tabs":string,"add-folder":string,"close":string,"new-tab-name":string,"delete-everything-and-close":string,"ok":string,"cancel":string,"error":string,"error updating","update {id} found":(id:string)=>string,"update {id} found, installation after close":(id:string)=>string,"about":string,"check for updates":string}}} */
+/** @type {{[key:string]:{meta:{name:string},"settings":string,"tabs":string,"add-tab":string,"delete-tab":string,"rename-tab":string,"delete-all-empty-tabs":string,"add-folder":string,"close":string,"new-tab-name":string,"delete-everything-and-close":string,"ok":string,"cancel":string,"error":string,"error updating","update {id} found":(id:string)=>string,"update {id} found, installation after close":(id:string)=>string,"about":string,"check for updates":string,"copied path to clipboard":string}}} */
 let langs = {
   de: {
     meta: {
@@ -27,6 +27,7 @@ let langs = {
       `Update ${id} gefunden, automatische installation nach dem nächsten Schließen`,
     about: "Über",
     "check for updates": "Suche nach Updates",
+    "copied path to clipboard": "Pfad kopiert!",
   },
   en: {
     meta: {
@@ -51,6 +52,7 @@ let langs = {
       `Update ${id} found, automatic installation after next closing`,
     about: "About",
     "check for updates": "Check for updates",
+    "copied path to clipboard": "Copied path to clipboard",
   },
 };
 
