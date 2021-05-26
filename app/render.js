@@ -71,11 +71,11 @@ const renderCurrentTabName = () => {
  * Function to show "Open Directory" window
  */
 const addItemDialog = () => {
-  currentWindow.hide();
+  currentWindow.minimize();
   electron.dialog
     .showOpenDialog(undefined, {
       properties: ["openDirectory"],
-      title: "Ordner hinzufügen",
+      title: currentLang["add-folder"],
     })
     .then((val) => {
       if (val.filePaths.length > 0) {
@@ -181,6 +181,7 @@ const init = () => {
     .getElementById("min")
     .addEventListener("click", () => currentWindow.minimize());
 
+  //#region Menu
   document.getElementById("more").addEventListener("click", () => {
     const mainMenu = new electron.Menu();
 
@@ -408,6 +409,7 @@ const init = () => {
     );
     mainMenu.popup();
   });
+  //#endregion
 
   // Add Listener for the add button
   document.getElementById("add").addEventListener("click", () => {
