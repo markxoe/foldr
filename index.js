@@ -12,7 +12,14 @@ const app = electron.app;
 
 let languageId = renderStore.langId;
 const currentLang = i18n.getLang(languageId);
+/** @type {Electron.BrowserWindow} */
 let mainWindow;
+
+autoUpdater.logger = {
+  info: console.log,
+  warn: console.warn,
+  error: console.error,
+};
 
 const createWindow = () => {
   mainWindow = new electron.BrowserWindow({
@@ -62,6 +69,16 @@ const createWindow = () => {
       icon: path.join(__dirname, "assets", "notification-icon.png"),
     });
     notification.show();
+  });
+
+  autoUpdater.on("download-progress", (progressObj) => {
+    /** @type {{bytesPerSecond:number;percent:number;transferred:number;total:number}} */
+    const data = progressObj;
+    mainWindow.setProgressBar(data.percent / 100.0);
+  });
+
+  autoUpdater.on("update-downloaded", () => {
+    mainWindow.setProgressBar(-1);
   });
 
   autoUpdater.checkForUpdates().catch(console.error);
