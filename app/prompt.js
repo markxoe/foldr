@@ -14,7 +14,10 @@ const prompt = (options) => {
     const msgEl = document.getElementById("input-msg");
     const headEl = document.getElementById("input-head");
 
+    const overlayEl = document.getElementById("overlay");
+
     promptEl.removeAttribute("hidden");
+    overlayEl.removeAttribute("hidden");
 
     msgEl.innerText = options.message;
     headEl.innerText = options.title;
@@ -40,6 +43,7 @@ const prompt = (options) => {
 
     const cleanUp = () => {
       promptEl.setAttribute("hidden", "");
+      overlayEl.setAttribute("hidden", "");
       buttonCancelEL.removeEventListener("click", cancelClickListener);
       buttonOkEl.removeEventListener("click", okClickListener);
     };
