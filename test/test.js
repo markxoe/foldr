@@ -4,34 +4,43 @@ const path = require("path");
 
 const app = new App({ path: electronPath, args: [path.join(__dirname, "..")] });
 
-app
-  .start()
-  .then(function () {
-    return app.browserWindow.isVisible();
-  })
-  .then(function (isVisible) {
-    if (!isVisible) throw Error("Not Visible");
-  })
-  .then(function () {
-    return app.client.getTitle();
-  })
-  .then(function (title) {
-    if (title != "Foldr") throw Error("Wrong title ," + title);
-  })
-  .then(() => {
-    return app.client.auditAccessibility({}).then((audit) => {
-      if (audit.failed) {
-        throw Error(
-          audit.message + " " + (audit.results.length ? audit.results : "")
-        );
-      } else
-        console.log(audit.message, audit.results.length ? audit.results : "");
-    });
-  })
-  .catch(function (error) {
-    console.error("Test failed:", error);
-  })
-  .then(function () {
-    app.stop();
-    console.log("Test successful");
+const chaiAsPromised = require("chai-as-promised");
+const chai = require("chai");
+
+chai.use(chaiAsPromised);
+chai.should();
+
+describe("Basic Tests", function () {
+  this.timeout(10000);
+
+  before(function () {
+    return app.start();
   });
+  after(function () {
+    if (app && app.isRunning()) {
+      return app.stop();
+    }
+  });
+
+  it("Open window", function () {
+    return app.client.waitUntilWindowLoaded().should.eventually.fulfilled;
+  });
+  it("Window count", function () {
+    return app.client.getWindowCount().should.eventually.equal(1);
+  });
+  it("Window title", function () {
+    return app.client.getTitle().should.eventually.equal("Foldr");
+  });
+  it("Accessibility", function () {
+    return app.client
+      .auditAccessibility({})
+      .then((i) => {
+        if (i.failed) {
+          throw Error(i.message);
+        } else {
+          return true;
+        }
+      })
+      .should.eventually.equal(true);
+  });
+});

@@ -14,7 +14,7 @@
   },
   "scripts": {
     "start": "electron .",
-    "test": "node test/test.js",
+    "test": "mocha",
     "build-win": "electron-builder --win --publish never",
     "publish-win": "electron-builder --win --publish onTagOrDraft",
     "build-mac": "electron-builder --mac --publish never",
@@ -23,6 +23,9 @@
     "publish-all": "electron-builder -mw --publish onTagOrDraft"
   },
   "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-as-promised": "^7.1.1",
+    "mocha": "^8.4.0",
     "electron": "^12.0.7",
     "electron-builder": "^22.11.3",
     "spectron": "^14.0.0"
