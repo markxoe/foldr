@@ -1,7 +1,7 @@
 /**
  *
  * @param {{title:string;message:string;placeholder:string;oklabel:string;cancellabel:string}} options
- * @returns {Promise<string>}
+ * @returns {Promise<{out?:string}>}
  */
 const prompt = (options) => {
   return new Promise((resolve, reject) => {
@@ -26,12 +26,12 @@ const prompt = (options) => {
     inputEl.value = "";
 
     const okClickListener = () => {
-      resolve(inputEl.value);
+      resolve({ out: inputEl.value });
       cleanUp();
     };
 
     const cancelClickListener = () => {
-      reject();
+      resolve({});
       cleanUp();
     };
 

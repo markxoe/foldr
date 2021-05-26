@@ -310,7 +310,7 @@ const init = () => {
             cancellabel: currentLang.cancel,
           })
             .then((v) => {
-              tabs.addTab(v.length ? v : "Tab 3");
+              if (v.out) tabs.addTab(v);
             })
             .catch(() => {});
         },
