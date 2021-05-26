@@ -15,12 +15,6 @@ const currentLang = i18n.getLang(languageId);
 /** @type {Electron.BrowserWindow} */
 let mainWindow;
 
-autoUpdater.logger = {
-  info: console.log,
-  warn: console.warn,
-  error: console.error,
-};
-
 const createWindow = () => {
   mainWindow = new electron.BrowserWindow({
     alwaysOnTop: store.has("sticky") ? store.get("sticky") : true,
@@ -34,8 +28,12 @@ const createWindow = () => {
     width: 600,
     minHeight: 100,
     minWidth: 300,
+    show: false,
   });
   mainWindow.loadFile("app/index.html");
+  mainWindow.on("ready-to-show", (event) => {
+    mainWindow.show();
+  });
 
   electron.ipcMain.on("setSticky", (event, args) => {
     store.set("sticky", args);
