@@ -41,9 +41,9 @@ jobs:
 
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1
-        if: ${{ github.event.inputs.dontbuild != "Y" }}
+        if: ${{ github.event.inputs.dontbuild != 'Y' }}
         with:
           github_token: ${{ secrets.github_token }}
           mac_certs: ${{ secrets.mac_certs }}
           mac_certs_password: ${{ secrets.mac_certs_password }}
-          release: ${{ startsWith(github.ref, 'refs/tags/v') || github.event.inputs.release == "Y" }}
+          release: ${{ startsWith(github.ref, 'refs/tags/v') || github.event.inputs.release == 'Y' }}
