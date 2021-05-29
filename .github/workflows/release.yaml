@@ -1,0 +1,49 @@
+name: Test, Build and publish
+
+on:
+  push:
+  workflow_dispatch:
+    inputs:
+      release:
+        required: true
+        default: "Y"
+        description: If this is an 'Y', then let electron-builder release
+      dontbuild:
+        required: true
+        default: "N"
+        description: If this is an 'Y', then dont run electron-builder
+
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install
+        run: npm ci
+
+      - name: Test
+        run: npm test
+
+  build:
+    needs: test
+
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest]
+    runs-on: ${{matrix.os}}
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 12
+
+      - name: Build/release Electron app
+        uses: samuelmeuli/action-electron-builder@v1
+        if: ${{ github.event.inputs.dontbuild != 'Y' }}
+        with:
+          github_token: ${{ secrets.github_token }}
+          mac_certs: ${{ secrets.mac_certs }}
+          mac_certs_password: ${{ secrets.mac_certs_password }}
+          release: ${{ startsWith(github.ref, 'refs/tags/v') || github.event.inputs.release == 'Y' }}
