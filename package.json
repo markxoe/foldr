@@ -1,7 +1,7 @@
 {
   "name": "foldr",
   "productName": "foldr",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "index.js",
   "dependencies": {
     "electron-store": "^8.0.0",
