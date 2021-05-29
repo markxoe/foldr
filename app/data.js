@@ -1,5 +1,8 @@
 const electronStore = require("electron-store");
-const defaultLangId = require("./i18n").defaultLangId;
+const i18n = require("./i18n");
+const defaultLangId = i18n.defaultLangId;
+const electronremote = require("electron").remote || require("electron");
+
 class AllData {
   /** @type {Array<{name:string;buttons:Array<string>}>} */
   alldata;
@@ -23,7 +26,9 @@ class AllData {
       default:
         this.alldata = [{ name: "Tab 0", buttons: ["/"] }];
     }
-    this.langId = defaultLangId;
+    this.langId = i18n.languageAvailableOrDefault(
+      electronremote.app.getLocaleCountryCode().toLowerCase()
+    );
     this.onChangeListener = [];
     this.currentTabId = 0;
     this.store = new electronStore({ name: storeName });

@@ -8,6 +8,7 @@
     "repo": "foldr",
     "owner": "markxoe"
   },
+  "afterSign": "electron-builder-notarize",
   "win": {
     "target": [
       {

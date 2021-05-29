@@ -67,10 +67,19 @@ const defaultLangId = "en";
 const getLangById = (langid) => {
   let out = langs[defaultLangId];
 
-  if (langid in langs) {
-    out = langs[langid];
+  const i = languageAvailableOrDefault(langid);
+
+  if (i !== undefined) {
+    out = langs[i];
   }
   return out;
+};
+
+const languageAvailableOrDefault = (langid) => {
+  return (
+    Object.keys(langs).find((i) => langid.toLowerCase().includes(i)) ||
+    defaultLangId
+  );
 };
 
 const getLangIdsAndNames = () => {
@@ -81,4 +90,5 @@ module.exports = {
   getLang: getLangById,
   getLangs: getLangIdsAndNames,
   defaultLangId,
+  languageAvailableOrDefault,
 };
