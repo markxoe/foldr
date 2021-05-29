@@ -1,35 +1,30 @@
-# Windows Explorer Switcher
+<p align="center"><br><img src="build/icon.png" width="128" height="128" /></p>
+<h1 align="center">Foldr</h1>
+<p align="center">Switch easily between filemanager tabs on Windows and MacOS</p>
 
-Wechselt zwischen Explorer Fenstern
+## Preview
+
+<p align="center"><br><img src="./docs/assets/win.jpg" width="50%" /></p>
 
 ## Installation
 
-1. Libs Installieren:
+1. Install dependencies:
    `npm i`
-2. Kompilieren:
-   `npm run build-win`
+2. Build:
+   1. for Windows:
+      `npm run build-win`
+   2. for MacOS:
+      `npm run build-mac`
 
-## Lokal ausführen
+## Development
 
-Klonen
-
-```bash
-  git clone https://github.com/toastbrot-org/explorer-switcher
-```
-
-In den Ordner gehen
+Install needed dependencies
 
 ```bash
-  cd explorer-switcher
+  npm i -D
 ```
 
-Installiere benötigte Libs
-
-```bash
-  npm i
-```
-
-Start
+Start app
 
 ```bash
   npm run start

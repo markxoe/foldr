@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Foldr</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="overlay" hidden>
+      <!-- This Element is to make the background darker for Prompts -->
+    </div>
+    <div id="close-n-stuff">
+      <div class="left">
+        <p>Foldr<span id="current-tab-name" hidden></span></p>
+      </div>
+      <div class="right">
+        <div class="control-button" id="more">
+          <img src="../assets/more.svg" alt="More Button" />
+        </div>
+        <div class="control-button" id="min">
+          <img src="../assets/min.svg" alt="Minimize Window" />
+        </div>
+        <div class="control-button" id="close">
+          <img src="../assets/close.svg" alt="Close Window" />
+        </div>
+      </div>
+    </div>
+    <div class="inner">
+      <div id="main"></div>
+    </div>
+    <div class="bobbel" id="add">
+      <img src="../assets/add.svg" alt="Add Folder" />
+    </div>
+    <div class="prompt" id="prompt" hidden>
+      <section>
+        <p>
+          <strong><span id="input-head"></span></strong>
+        </p>
+        <p id="input-msg">Please enter your social security Number</p>
+      </section>
+      <section>
+        <input type="text" id="input" />
+      </section>
+      <section>
+        <button id="input-cancel">Abbrechen</button>
+        <button id="input-ok">Ok</button>
+      </section>
+    </div>
+    <script src="render.js"></script>
+  </body>
+</html>

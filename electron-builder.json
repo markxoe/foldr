@@ -1,0 +1,38 @@
+{
+  "$schema": "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
+  "productName": "Foldr",
+  "appId": "org.toastbrot.foldr",
+  "copyright": "Copyright © 2021 Mark Oude Elberink",
+  "publish": {
+    "provider": "github",
+    "repo": "foldr",
+    "owner": "markxoe"
+  },
+  "win": {
+    "target": [
+      {
+        "target": "nsis",
+        "arch": ["x64", "ia32"]
+      },
+      {
+        "target": "portable",
+        "arch": ["x64", "ia32"]
+      }
+    ]
+  },
+  "mac": {
+    "category": "public.app-category.productivity",
+
+    "target": ["default"]
+  },
+  "dmg": {
+    "artifactName": "${productName}-${version}-Setup.${ext}"
+  },
+  "nsis": {
+    "oneClick": false,
+    "artifactName": "${productName}-${version}-Setup.${ext}"
+  },
+  "portable": {
+    "artifactName": "${productName}-${version}-Portable.${ext}"
+  }
+}

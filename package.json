@@ -1,28 +1,33 @@
 {
-  "name": "electron-windows-explorer-thing",
-  "version": "0.1.0",
+  "name": "foldr",
+  "productName": "foldr",
+  "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
-    "electron-store": "^8.0.0"
+    "electron-store": "^8.0.0",
+    "electron-updater": "^4.3.9"
   },
-  "description": "Switches between Windows Explorer Tabs",
-  "author": "markxoe",
+  "description": "Switches between filemanager Tabs on Desktop",
+  "author": {
+    "name": "Mark Oude Elberink",
+    "email": "mark@oude-elberink.de"
+  },
   "scripts": {
     "start": "electron .",
+    "test": "mocha",
     "build-win": "electron-builder --win --publish never",
-    "publish-win": "electron-builder --win --publish onTagOrDraft"
+    "publish-win": "electron-builder --win --publish onTagOrDraft",
+    "build-mac": "electron-builder --mac --publish never",
+    "publish-mac": "electron-builder --mac --publish onTagOrDraft",
+    "build-all": "electron-builder -mw --publish never",
+    "publish-all": "electron-builder -mw --publish onTagOrDraft"
   },
   "devDependencies": {
-    "electron": "^12.0.5",
-    "electron-builder": "^22.10.5"
-  },
-  "build": {
-    "productName": "Explorer Switcher",
-    "win": {
-      "target": "nsis"
-    },
-    "nsis": {
-      "oneClick": false
-    }
+    "chai": "^4.3.4",
+    "chai-as-promised": "^7.1.1",
+    "mocha": "^8.4.0",
+    "electron": "^12.0.7",
+    "electron-builder": "^22.11.3",
+    "spectron": "^14.0.0"
   }
 }

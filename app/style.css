@@ -1,0 +1,175 @@
+* {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+button {
+  color: #fff;
+  font-size: 1.1rem;
+  border-radius: 5px;
+  word-break: break-all;
+}
+
+.button-outer {
+  background-color: #0ea7ff;
+  display: block;
+  border-radius: 5px;
+  margin: 5px;
+  display: flex;
+  flex-wrap: nowrap;
+}
+.button-outer button {
+  border: none;
+  background: none;
+  margin: 5px;
+  padding: 1px 6px;
+}
+
+#main {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#main button:hover {
+  background-color: #ffffff70 !important;
+}
+
+html,
+body {
+  background-color: #202124;
+  margin: 0;
+  overflow: hidden;
+  height: 100%;
+}
+#close-n-stuff {
+  width: 100%;
+  height: 30px;
+  /* background-color: #36383d; */
+  -webkit-app-region: drag;
+  user-select: none;
+  -webkit-user-select: none;
+  display: flex;
+}
+
+#close-n-stuff .right {
+  display: flex;
+}
+
+#close-n-stuff .left {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+#close-n-stuff .left p {
+  color: #ffffff;
+  padding-left: 7.5px;
+  font-size: 17px;
+  margin: 0;
+}
+
+#close-n-stuff img {
+  height: 100%;
+}
+#close-n-stuff .control-button {
+  height: 15px;
+  padding: 7.5px;
+  width: 30px;
+  text-align: center;
+  -webkit-app-region: no-drag;
+}
+
+#close-n-stuff .control-button:hover {
+  background-color: #ffffff30;
+}
+
+.bobbel {
+  width: 20px;
+  height: 20px;
+  padding: 10px;
+  background: #36383d;
+  border-radius: 50px;
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+}
+
+.bobbel:hover {
+  background-color: #494b52;
+}
+
+.bobbel * {
+  width: 100%;
+  height: 100%;
+}
+
+.inner {
+  height: calc(100% - 30px);
+  overflow: auto;
+}
+
+.inner::-webkit-scrollbar {
+  width: 10px;
+}
+.inner::-webkit-scrollbar-corner {
+  background: rgba(0, 0, 0, 0);
+}
+.inner::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 6px;
+  border: 2px solid rgba(0, 0, 0, 0);
+  background-clip: content-box;
+  min-width: 32px;
+  min-height: 32px;
+}
+.inner::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.prompt {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: #202124;
+  width: 200px;
+  box-shadow: #0000006e 0 0 50px;
+  transform: translate(-50%, -50%);
+  padding: 15px;
+}
+
+.prompt section {
+  margin: 0;
+  margin-bottom: 10px;
+}
+.prompt section:last-child {
+  margin-bottom: 0;
+}
+
+.prompt p {
+  margin: 0;
+  color: #ffffff;
+}
+
+.prompt #input-cancel {
+  background-color: #00000000 !important;
+  border: 0;
+  color: #ffffff;
+  border-radius: 2px;
+}
+
+.prompt button#input-ok {
+  background-color: #147aca;
+  color: #ffffff;
+  border: 0;
+  border-radius: 2px;
+}
+
+.prompt button:hover {
+  filter: brightness(0.6) !important;
+}
+
+#overlay {
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background-color: #00000033;
+  top: 0%;
+  left: 0;
+}
