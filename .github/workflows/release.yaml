@@ -8,10 +8,10 @@ on:
         required: true
         default: "Y"
         description: If this is an 'Y', then let electron-builder release
-      dontbuild:
+      build:
         required: true
-        default: "N"
-        description: If this is an 'Y', then dont run electron-builder
+        default: "Y"
+        description: If this is an 'Y', then run electron-builder
 
 jobs:
   test:
@@ -27,6 +27,7 @@ jobs:
 
   build:
     needs: test
+    if: ${{ github.event.inputs.build == 'Y' || github.ref == 'refs/heads/master' }}
 
     strategy:
       matrix:
@@ -39,11 +40,20 @@ jobs:
         with:
           node-version: 12
 
+      - name: Prepare for app notarization
+        if: startsWith(matrix.os, 'macos')
+        run: |
+          mkdir -p ~/private_keys/
+          echo '${{ secrets.api_key }}' > ~/private_keys/AuthKey_${{ secrets.api_key_id }}.p8
+
       - name: Build/release Electron app
         uses: samuelmeuli/action-electron-builder@v1
-        if: ${{ github.event.inputs.dontbuild != 'Y' }}
         with:
           github_token: ${{ secrets.github_token }}
           mac_certs: ${{ secrets.mac_certs }}
           mac_certs_password: ${{ secrets.mac_certs_password }}
           release: ${{ startsWith(github.ref, 'refs/tags/v') || github.event.inputs.release == 'Y' }}
+        env:
+          # macOS notarization API key
+          API_KEY_ID: ${{ secrets.api_key_id }}
+          API_KEY_ISSUER_ID: ${{ secrets.api_key_issuer_id }}
