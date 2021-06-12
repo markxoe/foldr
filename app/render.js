@@ -1,3 +1,5 @@
+// @ts-check
+
 const main = document.getElementById("main");
 const crypto = require("crypto");
 
@@ -34,7 +36,8 @@ const reRenderButtons = () => {
     // Add event listener for onClick event
     buttonEl.addEventListener("click", function () {
       const link = this.getAttribute("link"); // Get Link and open
-      electron.shell.openPath(link);
+      if (process.platform == "win32") electron.shell.openExternal(link);
+      else electron.shell.openPath(link);
     });
 
     rootEl.addEventListener("contextmenu", (ev) => {
@@ -310,7 +313,7 @@ const init = () => {
             cancellabel: currentLang.cancel,
           })
             .then((v) => {
-              if (v.out) tabs.addTab(v);
+              if (v.out) tabs.addTab(v.out);
             })
             .catch(() => {});
         },
@@ -328,7 +331,7 @@ const init = () => {
             cancellabel: currentLang.cancel,
           })
             .then((v) => {
-              tabs.renameCurrentTab(v.length ? v : "Tab 3");
+              if (v.out) tabs.renameCurrentTab(v.out);
             })
             .catch(() => {});
         },
