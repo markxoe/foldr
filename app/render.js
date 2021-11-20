@@ -36,8 +36,7 @@ const reRenderButtons = () => {
     // Add event listener for onClick event
     buttonEl.addEventListener("click", function () {
       const link = this.getAttribute("link"); // Get Link and open
-      if (process.platform == "win32") electron.shell.openExternal(link);
-      else electron.shell.openPath(link);
+      electron.shell.openPath(link);
     });
 
     rootEl.addEventListener("contextmenu", (ev) => {
